@@ -31,7 +31,6 @@
   --colortxtact: #f1ff00;
   --coloricon: #000000;
 }
-
 [Theme-Style="blue"] {
   --colorbg: #0b121d;
   --D-shadow: black;
@@ -1629,6 +1628,7 @@
   --TCSMG-Third-Smax-h: clamp(300px, 100%, 300px);
   --TCSMG-Third-Smax-w: clamp(500px, 100%, 500px);
   --TCSMG-Third-Sborder1w: clamp(0.3px, 0.4vw, 1px);
+  --TCSMG-Third-span-gap: 5px;
   --TCSMG-Third-Sborder2w: 0;
   --TCSMG-Third-Sborder2r: 1vw;
   --TCSMG-Third-icon-f: 50px;
@@ -1700,6 +1700,7 @@
   max-width: var(--TCSMG-Third-Smax-w);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  gap: var(--TCSMG-Third-span-gap);
   position: relative;
   z-index: 1;
   padding: var(--TCSMG-Third-span-pd);
@@ -1943,7 +1944,7 @@
   top: 0;
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: fit;
 }
 #TCSM-Grid .Third span:not(.Year) section.Text {
   flex: 0 0 auto;
@@ -2104,7 +2105,7 @@
 }
 #TCSM-Grid .Third span:not(.Year) section.Text button.elem text {
   fill: var(--colortxt);
-  font-size: 70px;
+  font-size: 75px;
 }
 #TCSM-Grid .Third span:not(.Year).active {
   background-color: rgba(255, 255, 255, 0.1);
@@ -2118,8 +2119,8 @@
   /*🏮 MOVIES SERIES */
 }
 #TCSM-Grid .Third span:not(.Year).Movies, #TCSM-Grid .Third span:not(.Year).Series {
-  height: calc(2 * var(--TCSMG-Second-h));
-  aspect-ratio: 0.813559322;
+  height: calc(2.4 * var(--TCSMG-Second-h));
+  aspect-ratio: 0.8;
 }
 #TCSM-Grid .Third span:not(.Year).Movies section.Text button.icon, #TCSM-Grid .Third span:not(.Year).Series section.Text button.icon {
   width: 0%;
@@ -2130,7 +2131,7 @@
 }
 #TCSM-Grid .Third span:not(.Year).Movies section.Text button.elem text, #TCSM-Grid .Third span:not(.Year).Series section.Text button.elem text {
   fill: var(--colortxt);
-  font-size: 70px;
+  font-size: 55px;
 }
 #TCSM-Grid .Third span:not(.Year).Movies.expand, #TCSM-Grid .Third span:not(.Year).Series.expand {
   height: 100%;
