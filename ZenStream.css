@@ -1,0 +1,506 @@
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️ STYLE GLOBAL ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+*, *::before, *::after,html  {outline : none; margin : 0; padding : 0; box-sizing : border-box;}
+::-webkit-scrollbar          {width : 0.5px; height : 0.5px; border-radius : 10px;}
+::-webkit-scrollbar-thumb    {background-color : grey; border-radius : 1px;}
+
+@mixin Theme($Clr, $L, $D, $Spanc, $Txtc, $Txtactc, $iconc){
+$L-Theme    : lighten($Clr ,$L); $D-Theme  : darken($Clr ,$D);
+ 
+--colorbg   : #{$Clr};      --D-shadow : #{$D-Theme};  --L-shadow    : #{$L-Theme};
+ 
+--colorspan : #{$Spanc}; --colortxt : #{$Txtc};   --colortxtact : #{$Txtactc};  --coloricon : #{$iconc};}
+
+
+//Theme       
+:root                 {@include Theme(#E4EBF5, 50%, 80%, #178582, #ffffff, #f1ff00, #000000);}
+
+[Theme-Style="dark"]  {@include Theme(rgba(23,23,23,1), 50%, 60%, #178582, #ffffff, #f1ff00, #000000);}
+
+[Theme-Style="blue"]  {@include Theme(darken(#E4EBF5 ,85%), 50%, 60%, #178582, #ffffff, #f1ff00, #000000);}
+
+[Theme-Style="green"] {@include Theme(darken(#0E6251, 15%), 50%, 60%, #178582, #ffffff, #f1ff00, #000000);}
+
+[Theme-Style="purple"] {@include Theme(darken(#512E5F, 15%), 50%, 60%, #178582, #ffffff, #f1ff00, #000000);}
+
+
+
+
+ 
+
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️ @MIXIN ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+@mixin shadow($shadow, $Lshadow, $sz1, $br1, $sd1, $sz2, $br2, $sd2, $sz3, $br3, $sd3, $sz4, $br4, $sd4) {    
+box-shadow          :       $sz1 $sz1 $br1 $sd1 $shadow, $sz2 $sz2 $br2 $sd2 $Lshadow, 
+                        inset $sz3 $sz3 $br3 $sd3 $shadow, inset $sz4 $sz4 $br4 $sd4 $Lshadow;} 
+
+
+@mixin Flex($N1, $N2, $w, $h, $disp)    {flex : $N1 $N2 auto; width : $w; height : $h; display : $disp; 
+                                          &.hide{display : none;} &.opac{opacity:0;}}
+
+
+@mixin slider-thumb($thumbh, $thumbw, $thumbc, $thumbbrd, $thumbrd)
+                    {-webkit-appearance: none; appearance : none; height : calc(100% + #{$thumbh}); 
+                     width : $thumbw; background : $thumbc; border : $thumbbrd; cursor: ew-resize; 
+                     margin-top : calc(-1 * #{$thumbh} / 2); border-radius : $thumbrd;} 
+
+
+@mixin ButtonStyle($iconw, $iconfs, $iconfwght, $iconff, $iconc, $elemfs, $elemfwght, $elemff, $elemc, $inputc, $inputphc, $inputfs, $inputfwght, $inputff, $inputmaxh, $trackh, $trackrc, $thumbh, $thumbw, $thumbc, $thumbbrd, $thumbrd)  {
+                     display : flex; align-items : center; position : relative; border : none; background : none; 
+&.hide              {display : none;} &.no {display : none;}
+&.switch            {& svg text:nth-child(1){opacity:0;} & svg text:nth-child(2){opacity:1}}
+& svg text          {text-anchor : middle; alignment-baseline : middle; 
+&:nth-child(1)      {opacity:1;} &:nth-child(2)      {opacity:0}   &.FA {font-family : FontAwesome;}}
+ 
+& svg:not(.icon), 
+& svg:not(.elem)    {position : absolute; top : 0; left : 0; width : 100%; height : 100%;}
+  
+&.icon,& svg.icon,
+& .icon             {flex : 0 0 auto; width : $iconw; 
+& text              {fill : $iconc; font-size : $iconfs; font-weight: $iconfwght; font-family : $iconff;}} 
+ 
+&.elem,& svg.elem,
+& .elem             {flex : 1 1 auto; width : 100%; height : 100%; &::placeholder{font-size   : $inputfs;}
+& text              {fill : $elemc; font-size : $elemfs; font-weight: $elemfwght; font-family : $elemff;}  
+
+& [type=text],
+&::placeholder, 
+& [type=range]      {font-size   : $inputfs; font-weight : $inputfwght; font-family : $inputff; 
+                     text-align  : center; border : none; background : none; width : 100%; height : 100%; 
+                     -webkit-appearance : none; outline : none; display : block; max-height : $inputmaxh; 
+&:focus             {outline : none;}}
+ 
+& [type=text]       {margin : auto; color : $inputc;       
+&::placeholder      {color  : $inputphc;}}
+ 
+& [type=range]      {
+&::-webkit-slider-runnable-track 
+                    {width : 100%; height : $trackh; background : $trackrc;} 
+&::-webkit-slider-thumb          
+                    {@include slider-thumb($thumbh, $thumbw, $thumbc, $thumbbrd, $thumbrd);} 
+&::-moz-range-track {width : 100%; height : $trackh; background : $trackrc;}
+&::-moz-range-thumb {@include slider-thumb($thumbh, $thumbw, $thumbc, $thumbbrd, $thumbrd);} 
+&::-ms-track        {width : 100%; height : $trackh; background : $trackrc;}
+&::-ms-thumb        {@include slider-thumb($thumbh, $thumbw, $thumbc, $thumbbrd, $thumbrd);}}}}
+
+
+@mixin HeaderButton{
+@include ButtonStyle(var(--H-iconw), var(--H-iconfs), var(--H-iconfwght), var(--H-iconff), var(--H-iconc), 
+var(--H-elemfs), var(--H-elemfwght), var(--H-elemff), var(--H-elemc), var(--H-inputc), var(--H-inputphc), 
+var(--H-inputfs), var(--H-inputfwght), var(--H-inputff), var(--H-inputmaxh), var(--H-trackh), var(--H-trackrc), var(--H-thumbh), var(--H-thumbw), var(--H-thumbc), var(--H-thumbbrd), var(--H-thumbrd))}
+
+
+@mixin Playerdata      {flex : 0 0 auto; width : 100%; position : relative;
+& .Player-video, 
+& .Player-embed        {position : relative; width : 100%; height : 100%; overflow : hidden;
+& .video-js,& .plyr,
+& .mejs__player,
+& iframe               {position : absolute; left  : 0; top : 0; height : 100%; width : 100%; overflow : hidden;}} 
+& .Player-video        {display  : none;
+& .vjs-control-bar     {position : absolute; width : 100%; height: 2.5em; bottom : 1.4em;} 
+& .vjs-big-play-button {display  : none;}}}
+
+
+@mixin ScreenGrid      {flex : 1 1 auto; width : 100%; display : inline-grid; place-content : space-evenly;
+                        grid-template-columns : repeat(auto-fit, var(--width));
+                        grid-template-rows : repeat(auto-fit, var(--height)); 
+                        max-height : calc(var(--TCSMA-Screens-maxRows) * 10000px); 
+                        gap : var(--TCSMA-Screens-gap); aspect-ratio: var(--TCSMA-Screens-Ar);}
+
+
+@mixin Grid2fst-trd    {flex : 0 0 auto; display : flex; width : var(--TCSMG-Second-w); 
+                        height : var(--TCSMG-Second-h);  align-items : center; &.opac  {opacity:0;} 
+& span                 {width  : 100%; 
+& svg                  {& text {text-anchor : middle; alignment-baseline : middle;
+                        fill : var(--Switch-color); font-family : FontAwesome;}}}
+ 
+&.Expand               {height : calc(100% - (var(--TCSMG-First-h) + var(--TCSMG-Forth-h) + (2 * var(--TCSMG-pd)) + (2 * var(--TCSMG-gap)))); 
+& ~ .Second            {height : calc(100% - (var(--TCSMG-First-h) + var(--TCSMG-Forth-h) + (2 * var(--TCSMG-pd)) + (2 * var(--TCSMG-gap)))); flex-wrap : wrap; justify-content : space-around; transition: all 1s ease;
+&.snd                  {padding: 15px 15px; }}  
+& ~ .Third             {flex : 0 0 auto; display:none; transition : all 1s ease;}}}
+
+@mixin Grid2Snd        {flex : 0 0 auto; height: var(--TCSMG-Second-h); 
+                        width : calc(100% - (2 * (var(--TCSMG-Second-w) + var(--TCSMG-pd)))); display : flex; 
+                        flex-wrap : nowrap; justify-content:space-between; align-items : center; 
+                        overflow : scroll; gap : var(--TCSMG-Second-Spangap); min-height : 0px;
+&.opac                 {opacity : 0;} 
+ 
+& span                 {flex : 0 0 auto; display : flex; border-radius : var(--TCSMG-Second-Spanbradius);
+                        flex-direction : column; cursor : pointer; overflow : hidden;
+&.hide                 {display: none;} & section.Description {display: none;} & section.Player{display: none;}
+& section.Image        {flex : 1 1 auto; height : 100%; position : relative; 
+& img                  {position : absolute; width : 100%; height : 100%; left : 0; object-fit : contain;}}}}
+
+@mixin Grid3data       {flex : 1 1 auto; width : 100%; height: calc(100% - (var(--TCSMG-First-h) + var(--TCSMG-Second-h) + var(--TCSMG-Forth-h) + (3 * var(--TCSMG-pd))));  display : flex; flex-wrap : wrap; 
+                     justify-content : space-around; align-items : center;   overflow: scroll;  min-height : 0px; 
+                       gap : var(--TCSMG-Third-gap);  padding : var(--TCSMG-Third-pd);
+& section.Years       {position : absolute; left : 0; top : 0;  
+                       bottom : calc(var(--TCSMG-Forth-h) + (2 * var(--TCSMG-pd))); z-index : 999; 
+                       transition : all 1s ease; display : flex; flex-direction : column; 
+                       gap : var(--TCSMG-Third-gap); overflow : scroll; 
+&.hide                {display : none;}  
+& span.Year           {@include Flex(0, 0, 100%, 100%, flex);  
+& section:not(.Text)  {display : none;}
+& section.Text        {@include Flex(0, 0, 100%, 100%, flex);}}}
+ 
+& span:not(.Year)     {flex : 0 0 auto; display : flex; flex-direction : column; flex-wrap : wrap; 
+                       max-height : var(--TCSMG-Third-Smax-h); max-width : var(--TCSMG-Third-Smax-w);
+                       -webkit-box-sizing : border-box; box-sizing : border-box;  
+                       position : relative; z-index : 1; padding : var(--TCSMG-Third-span-pd);  
+&.opac:not(.active)   {opacity:0}
+&:before,&:after      {z-index : -1; position : absolute; content : ''; 
+                       -webkit-transition : all 0.4s ease; transition : all 0.4s ease; } 
+&:before              {top  : 0px; left : 0px; 
+                       bottom :calc(var(--TCSMG-Third-span-pd) * 2);right: calc(var(--TCSMG-Third-span-pd) * 2);}
+&:after               {bottom : 0px; right : 0px;
+                       top : calc(var(--TCSMG-Third-span-pd) * 2); left : calc(var(--TCSMG-Third-span-pd) * 2);}
+&.hide                {display: none;} & section.Description{ display: none;}& section.Player { display: none;}}}
+
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥️♥️♥♥️♥️♥♥️♥️ ALL CONTAINERS AUTOMATISME ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+#All-Containers     {
+& .CENTER           { 
+ 
+&.Switch            {
+& .Landing          {visibility : hidden; z-index:-1;} 
+& .Streaming        {visibility : visible; z-index : 2;}}
+ 
+& .Streaming.Expand { 
+& .Section:not(.Middle)    {flex : 0 0 auto; width : 0;    height : 0; visibility : hidden;}
+& .Section.Middle   {flex : 0 0 auto; width : 100%; height : calc(100% - calc(var(--TCS-H-h) * var(--TCS-FE-c)))}
+& .Section.Footer   {flex : 0 0 auto; width : 100%; height :calc(var(--TCS-H-h) * var(--TCS-FE-c));
+ }
+& #TCSMA-Urlstype   {display : none;}}
+ 
+& .FSizeST.Opened   {
+& button.toswitch   {& svg text:nth-child(1){opacity:0;} & svg text:nth-child(2){opacity:1}}
+& ~ .FSizeDD        {display : flex;}}}}
+
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️ ALL CONTAINERS ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+:root               {--max-h : 100%; --max-w : 100%; --Cont-pd : clamp(10px,2vh,40px); --Cont-rd : 10px;}
+
+#All-Containers     {padding  : var(--Cont-pd); height : 100vh;  display : flex; background : var(--colorbg);
+& .CONTAINER        {flex     : 1 1 auto; display    : flex;   flex-direction : column;
+& .Block            {flex     : 1 1 auto; width      : 100%;   height         : 100%;   display : flex;}
+& .TOP              {flex     : 0 0 auto; max-height : var(--max-h); 
+& .LEFT,& .RIGHT    {}
+& .CENTER           {flex     : 0 0 auto; max-width     : var(--max-w); background : var(--colorbg); 
+                     overflow : hidden;   border-radius : var(--Cont-rd);         position   : relative;
+                     @include shadow(var(--D-shadow), var(--L-shadow), 
+                     1.8px, 1.5px, 1.5px,   1.5px, 1.5px, 1.5px,   0.0px, 0px, 0px,  0px, 0px, 0px);}} 
+& .BOTTOM           {}}}
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥♥️♥️♥️ LANDING STREAMING ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+
+#Landing        {display : flex; flex-direction : column; justify-content : center; gap : 30px; 
+& img           {position   : absolute; width   : 100%; height : 100%; opacity : 0.5; visibility : hidden;
+&.active        {visibility : visible;  opacity : 1; transition  : visibility 0s, opacity 2s ease-in-out;}}
+& span          {width : 13px; height : 12px; background : white; z-index:6; opacity: 0.3;
+&.active        {border: 2px solid blue; width: 300%; opacity : 1; transition : 
+                 opacity 0.4s ease-in-out, width 0.4s ease-in-out;}}}
+
+#Streaming      {position : absolute; width : 100%; height : 100%; display : flex; flex-wrap : wrap; z-index :-1;
+& .Section      {flex    : 0 0 auto; width : 100%; 
+&.Header        {height  : var(--TCS-H-h);}  
+&.Left          {height  : calc(100% - ((1 + var(--TCS-F-c)) * var(--TCS-H-h))); width : var(--TCS-L-w);}  
+&.Middle        {height  : calc(100% - ((1 + var(--TCS-F-c)) * var(--TCS-H-h))); 
+                 width   : calc(100% - (2 * var(--TCS-L-w)));}  
+&.Right         {height  : calc(100% - ((1 + var(--TCS-F-c)) * var(--TCS-H-h))); width : var(--TCS-L-w);}  
+&.Footer        {height  : calc(var(--TCS-H-h) * var(--TCS-F-c));}}}
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥♥️♥♥♥️♥️♥️ HEADER ♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+:root {
+--TCS-H-h       : clamp(59px,10.5vh,120px);  --TCS-H-pdb       : clamp(10px, 1.5vh, 30px);
+--TCS-H-span-pd : clamp(1px, 0.88vh, 20px) clamp(2px,2.2vw,40px); 
+--TCS-L-w       : clamp(12px,2.3vw,60px);    --TCS-H-span-rd    : 10px;
+--TCS-F-c       : 1.1;                       --TCS-FE-c         : 1.0;
+
+--H-iconw   : 10%;  --H-iconfs : 60px;  --H-iconfwght : 500px;  --H-iconff : 'Times New Roman'; 
+--H-iconc   :  var(--coloricon);
+ 
+--H-elemfs  : 60px;  --H-elemfwght : 500px;  --H-elemff : 'Times New Roman'; --H-elemc :  var(--colortxt);
+ 
+--H-inputc  :  var(--colortxt); --H-inputphc :  var(--colortxt);  --H-inputfs :  63%; --H-inputfwght : 500px;
+--H-inputff : 'Times New Roman'; --H-inputmaxh : 15px; 
+ 
+--H-trackh  : 80%; --H-trackrc : var(--coloricon);  --H-thumbh  : 0px; --H-thumbw  : 10px; 
+--H-thumbc  : var(--coloricon);  --H-thumbbrd : 1.2px solid var(--colortxt); --H-thumbrd : 100%;}
+
+
+#Streaming      {
+& .Header       {display : flex; justify-content : center; flex-wrap : wrap; padding-bottom: var(--TCS-H-pdb);
+& .TCSH-Buttons {@include Flex(0, 0, 50%, 50%, flex); flex-wrap : wrap; z-index : 3; 
+& span          {@include Flex(0, 0, 100%, 100%, flex); padding : var(--TCS-H-span-pd);  
+&.active        {& section.Text button.toactivet svg text{fill: var(--colortxtact);}}  
+& section       {
+&:not(.Text)    {display : none;}
+&.Text          {@include Flex(0, 0, 100%, 100%, flex); overflow : hidden; border-radius : var(--TCS-H-span-rd);                    background : var(--colorspan); @include shadow(var(--D-shadow), var(--L-shadow), 
+                 1.5px, 1.5px, 1.5px,  1.5px, 1.5px, 1.5px,   0px, 0px, 0px,    0px, 0px, 0px);
+& button        {@include HeaderButton;}}}}
+ 
+&:nth-child(3)  {width : 90%; z-index : 2; justify-content : center; 
+& ul            {flex : 0 0 auto; height : 100%; display : flex;
+& span          {padding-left : 0; padding-right : 0; 
+&:not(:nth-child(1))   
+                {backgroun   : rgba(255, 255, 255, 0.5);}} 
+&.FilterSize    {width : 40%; flex-wrap : wrap; & section.Text {border-radius : 10px 0px 0px 10px;}} 
+&.AddScreen     {width : 20%; flex-wrap : wrap; & section.Text {background : black; border-radius : 0px;}
+& .icon         {width : 27%; 
+& text          {fill : var(--colorspan); font-size:90px;}}}
+&.FilterCategory{width : 40%; flex-wrap : wrap; & section.Text {border-radius : 0px 10px 10px 0px;}}}}}}}
+ 
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥♥️♥️♥♥♥️♥️♥️ LEFT RIGHT ♥️♥️♥️♥️♥️♥️♥♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+
+#All-Containers .Streaming {
+& .Left, & .Right{display : flex; flex-direction : column; justify-content : center; align-items : center;                         gap : 12px;} 
+& .Left         { 
+& span          {width : clamp(8px, 55%, 12px); aspect-ratio : 1/1.3; border : 1.8px solid var(--coloricon); 
+&.active        {border-radius : 100%; border : 1.8px solid var(--colorspan);}
+&.ToScroll      {margin-top:20px; width : clamp(10px, 100%, 15px); position: relative; 
+                 background: red;
+&.switch        {& svg text:nth-child(1){opacity:0;} & svg text:nth-child(2){opacity:1}} 
+& svg           {position : absolute; top : 0; left : 0; width : 100%; height : 100%;
+& text          {text-anchor : middle; alignment-baseline : middle; font-family : 'Times New Roman'; 
+                 font-weight : 550; font-size : 80px; fill: var(--colortxt);  
+ &.FA           {font-family : FontAwesome;} &:nth-child(1)  {opacity:1;} &:nth-child(2) {opacity:0} }}}}} 
+& .Right        {
+& a             {width : clamp(8px, 90%, 20px); height : clamp(12px , 100%, 50px);  position : relative; 
+& svg           {position : absolute; top : 0; left : 0; width : 100%; height : 100%; 
+& text          {text-anchor : middle; alignment-baseline : middle; font-family : 'Times New Roman'; 
+                 font-weight : 500; font-size : 80px; &.FA {font-family : FontAwesome;}}}}}}
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥♥️♥♥♥️♥️♥️ MIDDLE AREA ♥️♥️♥️♥️♥️♥️♥♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+@keyframes mouveIv {
+	0% {transform: translate(0,0);}  100% {transform: translate(-2500%,0)}}
+
+:root{
+--TCSMA-Screens-gap : clamp(1px, 3.2vh, 50px); --TCSMA-Screens-maxRows : 10; 
+--TCSMA-Screens-Ar  : 16/10.8;                 --TCSMA-Data-ptb : 22%;}
+
+#Streaming .Middle     {overflow : scroll; display : flex;  
+& #TCSM-Area           {@include Flex(0, 0, 100%, 100%, flex); flex-direction : column; overflow : scroll; 
+                        align-items:center;
+& #TCSMA-Urlstype      {@include Flex(0, 0, 100%, clamp(35px ,6.5vh, 80px), flex) ; flex-wrap : nowrap; 
+                        justify-content : space-between; align-items : center; overflow : scroll;
+& span                 {flex : 0 0 auto; height: 100%; aspect-ratio: 6.2/3; display: flex;
+                        flex-direction : column; background-color : rgba(255, 255, 255, .1); cursor : pointer;                           overflow : hidden; border-radius : 0; animation : mouveIv 40s linear infinite;
+& .Player              {display:none;} & .Description {display:none;}
+                         
+& .Image               {flex : 1 1 auto; height : 100%; width :100%; position : relative; 
+& img                  {position : absolute; left : 0; height : 100%; width :100%; object-fit : contain;}}  
+ 
+& .Text                {flex  : 0 0 auto; height : 30%; display : flex;  width : 100%;            
+& button               {@include HeaderButton;
+&.elem text            {fill : var(--colorspan); font-size : 80px;}}}}}
+ 
+  
+& #TCSMA-Screens  {@include ScreenGrid;                      
+& .Screen         {@include Flex(0 ,0, var(--width), var(--height), flex); flex-direction : column;  
+&.no              {display : none;} & .Description {display: none;} & .Image {display: none;} 
+ 
+& .Player         {@include Playerdata; aspect-ratio: 16/9; background : black;                     
+& .logo           {position : absolute; left : 0; top : 4%; width : 11%; height : 5.2%;background : red; z-index:1; 
+& button          {@include HeaderButton;}   &.hide {display : none;}}} 
+ 
+& .Text           {flex : 1 1 auto; display: flex; justify-content : space-around; align-items:center; 
+                   gap   : clamp(1px, 3.5%, 20px);  
+& button          {@include HeaderButton;  background : var(--colorspan); border-radius : 10px; max-height : 18px; 
+&.active          {& svg text  {fill: var(--colortxtact);}}
+&.icon            {height : calc(100% - (2 * var(--TCSMA-Data-ptb))); max-width : 21px; border-radius : 5px; 
+& text            {fill : var(--coloricon); font-size : 47px;}
+&.Checkbox        {background : red;}} 
+  
+&.elem            {max-width : 160px; height:calc(100% - (2 * var(--TCSMA-Data-ptb))); 
+& text            {fill : var(--coloricon); font-size : 65px;}
+&.elem.uniqueurl  {max-width : 460px;& text{font-family : FontAwesome;}}}}}
+ 
+&.Destination     {& section.Text button.Checkbox{background:lime;}}}}}}
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥♥️♥♥♥️♥️♥️ GRID FIRST ♥️♥️♥️♥️♥️♥️♥♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+
+:root { 
+--TCSMG-pd         :  clamp(20px , 1.6vh, 60px) clamp(5px , 1.6vh, 60px) 
+                      clamp(5px , 1.6vh, 60px) clamp(5px , 1.6vw, 60px) ;   --TCSMG-gap : clamp(1px , 1.6vh, 30px); 
+--TCSMG-First-h    :  clamp(20px, 1.5vh, 100px);   --TCSMG-First-Spangap   : clamp(1px , 1.6vh, 30px);
+--Switch-color     :  var(--colorspan);} 
+
+#TCSM-Grid     {flex : 0 0 auto; width : 80%; min-width: 200px; background : rgba(23,23,23,1);
+                display: flex; flex-wrap: wrap; padding : var(--TCSMG-pd); gap : var(--TCSMG-gap); 
+                justify-content:center;  position: relative;  &.hide  {display : none;} 
+& .First       {@include Flex(0, 0, 100%, var(--TCSMG-First-h), flex); flex-wrap : nowrap; overflow : scroll;
+                justify-content : space-between; align-items : center; gap : var(--TCSMG-First-Spangap);
+&.hide         {display : none;}
+ 
+& span         {@include Flex(0, 0, 30%, 90%, flex); 
+&.active       {& section.Text .toactivet svg text{fill: var(--colortxtact);}}   
+& section:not(.Text)  {display           : none;}
+& section.Text {@include Flex(0, 0, 100%, 100%, flex); overflow : hidden; border-radius : 10px; 
+                background : var(--colorspan); box-shadow : var(--Boxshadow-1-s1); 
+& button       {@include HeaderButton;}}}}} 
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥♥️♥️♥♥️♥♥♥️♥️♥️ GRID SECOND ♥️♥️♥️♥️♥️♥️♥♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->
+
+:root {
+--TCSMG-Second-w         : clamp(22px,1.6vw,30px);      --TCSMG-Second-h            : clamp(60px, 6.5vh, 200px);
+--TCSMG-Second-Spangap   : clamp(25px , 2.6vw, 60px);    --TCSMG-Second-Spanbradius  : 10px;
+--TCSMG-Second-Spanh     : calc(var(--TCSMG-Second-h) -  clamp(10px , 1.5vh, 40px))}
+
+
+#TCSM-Grid .Second {
+&.fst, &.trd       {@include Grid2fst-trd; transition: all 1s ease; 
+& span             {aspect-ratio : 1; max-width : 25px; & svg text {font-size : 55px;}}}
+
+&.snd              {@include Grid2Snd; padding: 0px 15px; transition : all 1s; 
+                   @include shadow(darken(rgba(23,23,23,1), 65%), lighten(rgba(23,23,23,1), 24%), 
+                   1.9px, 1.5px, 0px, -1.9px, 1.5px, 0px,   0px, 0px, 0px,  0px, 0px, 0px);              
+  
+& span             {aspect-ratio: 5.5/3;  background : rgba(255, 255, 255, .0); height : var(--TCSMG-Second-Spanh);
+&.UrlsTypes        {animation : mouveIv 40s linear infinite;}
+
+&.active           {& section.Text .toactivet svg text {fill : var(--colortxtact);}}
+ 
+& section.Text     {flex  : 0 0 auto; height : 25%; display : flex; border-style : solid; 
+                     border-color : var(--Switch-color); border-width :0.01px 0px;   
+ 
+& button           {@include HeaderButton;
+&.icon             {width : 10%; & text {fill : var(--Switch-color); font-size : 80px;}} 
+&.elem             {& text {fill : var(--colortxt); font-size : 70px;}}}}}}}
+ 
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ GRID THIRD ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->\\ 
+
+:root {
+--TCSMG-Third-pd        : clamp(3px, 2vh, 100px);      --TCSMG-Third-span-pd    : clamp(6px, 1vh, 12px); 
+--TCSMG-Third-gap       : clamp(10px , 2.6vw, 60px);    --TCSMG-Third-Smax-h     : clamp(300px, 100%, 300px); 
+--TCSMG-Third-Smax-w    : clamp(500px, 100%, 500px);   --TCSMG-Third-Sborder1w  : clamp(0.3px, 0.4vw, 1px);
+--TCSMG-Third-Sborder2w : 0;//clamp(0.3px, 0.4vw, 1px);
+--TCSMG-Third-Sborder2r : 1vw;         --TCSMG-Third-icon-f    : 50px; --TCSMG-Third-Micon-f   : 50px;
+--TCSMG-Third-elem-f    : 80px;        --TCSMG-Third-Melem-f   : 80px;}
+
+
+#TCSM-Grid .Third       {@include Grid3data;
+
+/*🏮 Years Button WITH YEAR */
+& section.Years         {width : 25%; max-width : 60px; background : black;                          
+& span.Year             {height : 20px;  
+&.active                {border : 1px solid var(--colortxtact);}
+& section.Text          {
+& button                {@include HeaderButton;
+&.elem                  {border-radius : 10px;
+& text                  {fill : var(--colorspan); font-size : 50px;}}}}}} 
+ 
+  
+/*🏮 MOVIES CLOSE EXPAND */
+& button.closeExpand    {width : 25px; height : 25px; border : 1px solid var(--colortxt); 
+                         position  : absolute; top : 50%; transform : translateY(-50%); z-index:10;
+                         left : 0; border-radius : 0 0 0px 0; background-color : rgba(23,23,23,1); 
+                         
+&.hide                  {display : none;}
+& text                  {fill : white; font-size : 46px; text-anchor : middle; alignment-baseline : middle; 
+                         font-family : FontAwesome;}}    
+
+    
+/*🏮 Stream Spans */
+& span:not(.Year)      {height:calc(1.5 * var(--TCSMG-Second-h)); aspect-ratio:7.8 / 8.6;  
+                         background: rgba(255, 255, 255, 0.06); border-radius: 1vw; transition : all 1s;
+&.hide                  {display : none;}
+  
+&:before,&:after        {border-radius: 1vw; opacity : 0.95; 
+                         border : var(--TCSMG-Third-Sborder1w) solid var(--Switch-color);}
+ 
+& section.Image         {flex : 1 1 auto; position : relative; background-color : rgba(23,23,23,1);
+                         box-shadow : 0 0 20px rgba(0, 0, 0, 0.5); backface-visibility: hidden;        
+                         aspect-ratio: 1; border: var(--TCSMG-Third-Sborder2w) solid var(--Switch-color);
+                         border-radius: var(--TCSMG-Third-Sborder2r); 
+& img                   {position : absolute; top:0; height:100%; width:100%; object-fit : contain;}}  
+ 
+& section.Text          {flex  : 0 0 auto; height : 28%; display : flex; border-style : solid; flex-wrap: wrap;
+                         background : rgba(23,23,23,1); box-shadow : 0 0 20px rgba(0, 0, 0, 0.5); 
+                         backface-visibility: hidden; border-color : var(--colorspan); border-width : 0px 0px;  
+                         
+& button                {@include HeaderButton;}  
+& button                {
+&.icon                  {width : 0%; & text {fill : var(--Switch-color); font-size : 70px;}} 
+&.elem                  {height:50%;& text {fill : var(--colortxt); font-size : 70px;}}}}   
+
+&.active                {background-color: rgba(255, 255, 255, 0.1);
+&:before,&:after        {border : var(--TCSMG-Third-Sborder1w) solid var(--colortxtact); opacity : 1;}  
+& section.Text .toactivet svg text{fill: var(--colortxtact);}}
+ 
+
+/*🏮 MOVIES SERIES */  
+&.Movies,&.Series       {height:calc(2 * var(--TCSMG-Second-h)); aspect-ratio: 4.8/5.9; 
+& section.Text          {
+& button                {
+&.icon                  {width : 0%; & text {fill : var(--colorspan); font-size : 70px;}} 
+&.elem                  {& text {fill : var(--colortxt); font-size : 70px;}}}}
+ 
+&.expand                {height : 100%; width : calc(100% - 60px); position: absolute; 
+                         top : 50%; transform : translateY(-50%); z-index : 20; transition : all 0.5s;
+& section.Image         {width : 45%;}
+& section.Text          {height : 10%; width : 45%; border:none; & text{font-size:55px;}}
+& section.Description   {flex : 0 0 auto; width : 55%; height : 100%; display : flex; flex-direction : column; 
+                         background-color : rgba(23,23,23,1);
+& button                {& svg{width:100%;height:100%; & text{text-anchor : middle; alignment-baseline : middle;
+                        fill : var(--colorspan); font-size : 55px; font-family : FontAwesome;} }} 
+ 
+& button.description    {flex : 0 0 auto; height : 30%; word-wrap : break-word; font-size : 11px; 
+                         color : var(--colortxt); background : rgba(23,23,23,1); overflow  : scroll; 
+                         @include shadow(darken(rgba(23,23,23,1), 65%), lighten(rgba(23,23,23,1), 24%), 
+                         1.9px, 1.5px, 0px, -1.9px, 1.5px, 0px,   0px, 0px, 0px,  0px, 0px, 0px);} 
+& ul.buttons            {flex : 1 1 auto; width : 100%; display : flex; flex-wrap : wrap; align-items : center;                              justify-content : center; gap : var(--TCSMG-gap); overflow  : scroll;  
+ 
+& button                {flex : 0 0 auto; width : 40%; max-width : 80px; height : 30px; 
+                         border : 2px solid var(--Switch-color); background-color : rgba(23,23,23,1); 
+                         transition : all 1s; display : flex; 
+&.switch                { 
+& svg.icon              {& text:nth-child(1) {opacity : 0;} & text:nth-child(2) {opacity : 1}}}
+&.active                {border-color : var(--colortxtact);}
+
+& svg.icon              {flex : 0 0 auto; width : 10%; & text {fill : var(--colortxt); font-size : 80px; 
+                         font-family: FontAwesome;}} 
+& svg.elem              {flex : 1 1 auto; height : 100%; & text {fill : var(--Switch-color); 
+                         font-family:'Times New Roman'; font-size : 40px;}}}}}}}}
+ 
+/*🏮 Your Urls */ 
+& span.YourUrls         {width : 100%; height : clamp(160px, 5vh, 190px); max-width : clamp(500px, 100%, 500px);                            gap : calc(var(--TCSMG-Third-gap) - 8px); flex-wrap:nowrap; background : none; 
+                         max-height : 100%;
+&:before,&:after        {display:none;}
+& section.Text          {flex : 1 1 auto; height : 20%; border-width : 0;
+                         @include shadow(darken(rgba(23,23,23,1), 65%), lighten(rgba(23,23,23,1), 24%), 
+                         1.9px, 1.5px, 0px, -1.9px, 1.5px, 0px,   0px, 0px, 0px,  0px, 0px, 0px);
+& button                {
+&.active svg text       {fill : var(--colortxtact);} 
+&.Stream                {border : 1px solid red; & svg text       {fill : re;}} 
+
+&.icon                  {width : 10%; & text {fill : var(--colortxt); font-size : 80px;}} 
+&.elem                  {height:100%; & text {fill : var(--colortxt); font-size : 90px;}}}}}}
+ 
+
+
+
+
+//<!--- ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ GRID FORTH ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️ --->\\ 
+
+:root{
+--TCSMG-Forth-h    : clamp(30px, 2.5vh, 200px);}
+
+#TCSM-Grid .Forth  {@include Flex(0, 0, 100%, var(--TCSMG-Forth-h), flex); box-shadow : var(--Boxshadow-2-s); 
+                    justify-content:space-around; 
+& button           {@include HeaderButton;      &.opac  {visibility : hidden} 
+&.icon             {fill  : var(--Switch-color); width : 10%; border : 0.5px solid var(--Switch-color); 
+& text             {font-size : 30px; fill : var(--Switch-color);}} 
+&.elem             {border-radius : 10px; max-width : 280px; 
+                   @include shadow(darken(rgba(23,23,23,1), 65%), lighten(rgba(23,23,23,1), 24%), 
+                   1.9px, 1.5px, 0px, -1.9px, 1.5px, 0px,   0px, 0px, 0px,  0px, 0px, 0px);
+& text             {font-size : 30px; fill : var(--Switch-color);}}}}
+ 
