@@ -98,7 +98,7 @@
 :root {
   --max-h: 100%;
   --max-w: 100%;
-  --Cont-pd: clamp(100px, 2vh, 400px);
+  --Cont-pd: clamp(10px, 2vh, 40px);
   --Cont-rd: 10px;
 }
 #All-Containers {
