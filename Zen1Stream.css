@@ -95,6 +95,7 @@
 #All-Containers .CENTER .FSizeST.Opened ~ .FSizeDD {
   display: flex;
 }
+
 :root {
   --max-h: 100%;
   --max-w: 100%;
