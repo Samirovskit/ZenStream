@@ -1074,6 +1074,7 @@ $$("#TCSM-Grid .First, #TCSM-Grid .Second, #TCSM-Grid .Forth, .G3Span").forEach(
 $(".closeExpand").classList.add("hide");  
 $(".Yoururl").classList.remove("switch", "Opened");  
 $("#All-Containers .Streaming .Middle").scrollTo({top:0, left:10000 ,behavior: 'smooth'}); 
+$(".ToScroll").classList.add("Opened");
 if(elem.matches(".Movies, .TVShows")){
                              $(".searchautocomplete").classList.remove("opac");
                              $(".YearST").classList.remove("opac","switch", "opac");                             
