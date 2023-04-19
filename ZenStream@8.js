@@ -808,7 +808,7 @@ let G3_Americain_Movies = [
 "description":"هذه قصة حول معلم خصوصي يجد نفسه مضطراً للتعامل مع طلب غير متوقع في قصر ضخم، ويجد نفسه يكافح مع أوهام طالبه المهووس الذي يهدده بكشف أسراره الداكنة.", 
 
  
-"SubButtons":"العرض🔲Movies🔲https://www.imdb.com/video/imdb/vi3891708953/imdb/embed?autoplay=false🔹️emurlwithdownload🔹️active🟤🔲🔲🪷مشاهدة🔲Movies🔲https://vidpro.net/embed-if4fp0bicrpa.html🔹️emurlwithdownload🔹️active🟤https://vadbam.net/embed-4kv58o3mr9rr.html🔹️emurlwithdownload🔹️♤🟤https://viidshar.com/embed-0xfngv0aykua.html🔹️emurlwithdownload🔹️♤🟤https://govad.xyz/embed-mnkdyplmn42y.html🔹️emurlwithdownload🔹️♤🟤https://guccihide.com/e/x2y5tahauul4🔹️emurlwithdownload🔹️♤🟤https://uqload.co/embed-lei76d1fj1en.html🔹️emurlwithdownload🔹️♤🟤https://streamtape.com/e/9Rg7bqXR7xTaMyO🔹️emurlwithdownload🔹️♤🟤https://streamvid.net/embed-uqik044x2sfk.html🔹️emurlwithdownload🔹️♤🟤https://upstream.to/embed-mxhivn0fu9gl.html🔹️emurlwithdownload🔹️♤🟤https://uptostream.com/iframe/p3ophq6v3b94🔲url1🔹️ar-عربية🔹️active🔲https://vidpro.net/if4fp0bicrpa.html🔹️S0🔹️active🟤https://uptobox.com/p3ophq6v3b94🔹️S1🔹️♤🟤https://guccihide.com/w/x2y5tahauul4🔹️S2🔹️♤🟤https://streamtape.com/v/9Rg7bqXR7xTaMyO🔹️S3🔹️♤🟤https://streamvid.net/uqik044x2sfk🔹️S4🔹️♤🟤https://upstream.to/mxhivn0fu9gl🔹️S5🔹️♤🟤https://gofile.io/d/LUCHgw🔹️S6🔹️♤🟤https://drop.download/d0b7nuhk66m8🔹️S7🔹️♤" },]
+"SubButtons":"العرض🔲Movies🔲https://www.imdb.com/video/imdb/vi3891708953/imdb/embed?autoplay=false🔹️emurlwithdownload🔹️active🟤🔲🔲🪷مشاهدة🔲Movies🔲https://vidpro.net/embed-if4fp0bicrpa.html🔹️emurlwithdownload🔹️active🟤https://vadbam.net/embed-4kv58o3mr9rr.html🔹️emurlwithdownload🔹️♤🟤https://viidshar.com/embed-0xfngv0aykua.html🔹️emurlwithdownload🔹️♤🟤https://govad.xyz/embed-mnkdyplmn42y.html🔹️emurlwithdownload🔹️♤🟤https://guccihide.com/e/x2y5tahauul4🔹️emurlwithdownload🔹️♤🟤https://uqload.co/embed-lei76d1fj1en.html🔹️emurlwithdownload🔹️♤🟤https://streamtape.com/e/9Rg7bqXR7xTaMyO🔹️emurlwithdownload🔹️♤🟤https://streamvid.net/embed-uqik044x2sfk.html🔹️emurlwithdownload🔹️♤🟤https://upstream.to/embed-mxhivn0fu9gl.html🔹️emurlwithdownload🔹️♤🟤https://uptostream.com/iframe/p3ophq6v3b94🔲url1🔹️ar-عربية🔹️active🔲https://vidpro.net/if4fp0bicrpa.html🔹️S0🔹️active🟤https://uptobox.com/p3ophq6v3b94🔹️D1🔹️♤🟤https://guccihide.com/w/x2y5tahauul4🔹️D2🔹️♤🟤https://streamtape.com/v/9Rg7bqXR7xTaMyO🔹️D3🔹️♤🟤https://streamvid.net/uqik044x2sfk🔹️D4🔹️♤🟤https://upstream.to/mxhivn0fu9gl🔹️D5🔹️♤🟤https://gofile.io/d/LUCHgw🔹️D6🔹️♤🟤https://drop.download/d0b7nuhk66m8🔹️D7🔹️♤" },]
  
 
 
@@ -1410,6 +1410,7 @@ Playme         = "onlytrack🩱`+trackurl+`🩱`+tracklangue+`🩱`+"#"+playerid
 
 document.querySelector(".Screen.Destination section.Text").insertAdjacentHTML("beforeend", html2); 
  
+
 //♥️Downloads 
 let downloadserver = ""; let downloadurl = ""; let html3 = ""; 
 if(elem.matches(".subbutton")){
@@ -1421,12 +1422,12 @@ if(Datadownloads[j]===""){}
 else{
 let eachdownloaddata    = Datadownloads[j].split("🔹️"); 
 downloadurl             = eachdownloaddata[0]==="inputdownload" ? elem.closest("span.YourUrls").querySelector(".subtitleurl").value : eachdownloaddata[0];
-downloadserver          = eachdownloaddata[0]==="inputdownload" ? "S1"  : eachdownloaddata[1]; 
+downloadserver          = eachdownloaddata[0]==="inputdownload" ? "D1"  : eachdownloaddata[1]; 
   
 html3 +=
 `<button class = "Downloadme datascreen download elem hide `+eachdownloaddata[2]+`" 
-Downloadme     = "">
-<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"> <text x="50%" y="50%">`+downloadserver+`</text> 
+Downloadme         = "`+downloadurl+`🩱`+"#"+playerid+`🩱`+"#"+dataid+`">
+<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"> <text x="50%" y="50%">D_`+j+`</text> 
 </svg></button>`;}}  
 
 document.querySelector(".Screen.Destination section.Text").insertAdjacentHTML("beforeend", html3);}
@@ -1478,14 +1479,17 @@ $$(".Downloadme").forEach (el=>el.addEventListener("click", ()=>{
 $$("#"+el.closest("section.Text").id+" .datascreen").forEach(ele => {ele.classList.add("hide")})
 $$("#"+el.closest("section.Text").id+" .datascreen.original").forEach(ele => {ele.classList.remove("hide")})
 $$("#"+el.closest("section.Text").id+" .Downloadme").forEach(ele => {ele.classList.remove("active")});
-el.classList.add("active");}))
  
-$$(".Stream.inputstream").forEach (el=>el.addEventListener("click", ()=>{bigfilter(el); }))}                                     
-
+var downloadVdata = el.getAttribute('Downloadme').split("🩱");  
+//player dispose
+let player = videojs(document.querySelector(downloadVdata[1]+" video"));
+player.dispose(); 
+videoplayer(downloadVdata[0], "emurlwithdownload", "", "", downloadVdata[1] , downloadVdata[2], showlogo4url);
+el.classList.add("active");})) 
+$$(".Stream.inputstream").forEach (el=>el.addEventListener("click", ()=>{bigfilter(el); }))}                                   
 let Stream   = document.querySelectorAll('.Stream');
 for (var s = 0; s    < Stream.length; s++) {
 Stream[s].addEventListener("click",function() {bigfilter(this)});}
-
 
 
 
